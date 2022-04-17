@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    android:id="@+id/card_view"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:cardElevation="14dp"
+    app:cardCornerRadius="14dp"
+    android:layout_margin="4dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_song_poster"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_margin="6dp"
+            android:src="@drawable/ic_launcher_foreground"
+            android:scaleType="centerInside"
+            app:layout_constraintHorizontal_weight="1"
+            android:contentDescription="@string/song_poster_description" />
+
+        <TextView
+            android:id="@+id/tv_collection_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="The Sound Of Madness"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:maxLines="2"
+            android:ellipsize="end"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_song_poster"
+            app:layout_constraintEnd_toStartOf="@id/tv_track_price"/>
+
+        <TextView
+            android:id="@+id/tv_artist_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="50 Cent"
+            app:layout_constraintStart_toStartOf="@id/tv_collection_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_collection_name"/>
+        <TextView
+            android:id="@+id/tv_track_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_margin="10dp"
+            android:text="1.99"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
