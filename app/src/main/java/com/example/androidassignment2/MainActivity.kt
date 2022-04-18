@@ -2,6 +2,7 @@ package com.example.androidassignment2
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.viewpager.widget.ViewPager
 import com.example.androidassignment2.adapters.ViewPagerAdapter
 import com.example.androidassignment2.fragments.ClassicFragment

@@ -5,11 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.androidassignment2.R
 import com.example.androidassignment2.adapters.SongTracksAdapter
-import com.example.androidassignment2.model.apiResponse
+import com.example.androidassignment2.model.ApiResponse
 import com.example.androidassignment2.model.remote.RockTracksService
 import retrofit2.Call
 import retrofit2.Callback
@@ -19,6 +21,7 @@ class RockFragment : Fragment() {
 
     private lateinit var rockSongsList: RecyclerView
     private lateinit var adapter: SongTracksAdapter
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,16 +35,25 @@ class RockFragment : Fragment() {
             false)
         initViews(view)
         getRockList()
+        refreshLayout()
+
         return view
+    }
+
+    private fun refreshLayout() {
+        swipeRefreshLayout.setOnRefreshListener {
+            Toast.makeText(context, "Page Refreshed", Toast.LENGTH_SHORT).show()
+            swipeRefreshLayout.isRefreshing = false
+        }
     }
 
     private fun getRockList() {
         RockTracksService.initRetrofit().getRockTracks()
             .enqueue(
-                object : Callback<apiResponse> {
+                object : Callback<ApiResponse> {
                     override fun onResponse(
-                        call: Call<apiResponse>,
-                        response: Response<apiResponse>) {
+                        call: Call<ApiResponse>,
+                        response: Response<ApiResponse>) {
                         if (response.isSuccessful){
                             updateAdapter(response.body())
                         }else{
@@ -49,7 +61,7 @@ class RockFragment : Fragment() {
                         }
                     }
 
-                    override fun onFailure(call: Call<apiResponse>, t: Throwable) {
+                    override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
                         showError(t.message ?: "Unknown error")
                     }
                 }
@@ -60,7 +72,7 @@ class RockFragment : Fragment() {
 
     }
 
-    private fun updateAdapter(body: apiResponse?) {
+    private fun updateAdapter(body: ApiResponse?) {
         body?.let {
             adapter = SongTracksAdapter(it)
             rockSongsList.adapter = adapter
@@ -70,5 +82,6 @@ class RockFragment : Fragment() {
     private fun initViews(view: View) {
         rockSongsList = view.findViewById(R.id.rock_songs_list)
         rockSongsList.layoutManager = LinearLayoutManager(context)
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout)
     }
 }

@@ -10,7 +10,7 @@ data class SongResponse(
     val previewUrl: String
 )
 
-data class apiResponse(
+data class ApiResponse(
     val resultCount: Int,
     val results: SongList
 )
